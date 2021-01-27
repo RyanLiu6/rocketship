@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  rocketship:
+    build: .
+    image: docker.ryanliu6.xyz/rocketship
+    container_name: rocketship
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.docker.network=proxy"
+    #   - "traefik.http.routers.rocketship.entrypoints=http"
+    #   - "traefik.http.routers.rocketship.rule=Host(${MANAGE_DOMAIN})"
+    #   - "traefik.http.routers.rocketship.middlewares=rocketship-https-redirect"
+    #   - "traefik.http.middlewares.rocketship-https-redirect.redirectscheme.scheme=https"
+    #   - "traefik.http.routers.rocketship-secure.entrypoints=https"
+    #   - "traefik.http.routers.rocketship-secure.rule=Host(${MANAGE_DOMAIN})"
+    #   - "traefik.http.routers.rocketship-secure.tls=true"
+    #   - "traefik.http.routers.rocketship-secure.tls.certresolver=http"
+    #   - "traefik.http.routers.rocketship-secure.service=rocketship"
+    #   - "traefik.http.services.rocketship.loadbalancer.server.port=80"
+
+networks:
+  proxy:
+    external: true
