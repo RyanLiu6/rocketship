@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        folder_path: frontend
+        folder_path: ./frontend
     image: docker.ryanliu6.xyz/rocketship_frontend
     container_name: rocketship_frontend
     restart: unless-stopped
@@ -15,7 +15,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - 3001:3000
+      - 10080:3000
     environment:
       - CHOKIDAR_USEPOLLING=true
     # labels:
@@ -31,6 +31,19 @@ services:
     #   - "traefik.http.routers.rocketship-secure.tls.certresolver=http"
     #   - "traefik.http.routers.rocketship-secure.service=rocketship"
     #   - "traefik.http.services.rocketship.loadbalancer.server.port=80"
+
+  rocketship_backend:
+    build:
+      context: .
+      args:
+        folder_path: ./backend
+    image: docker.ryanliu6.xyz/rocketship_backend
+    container_name: rocketship_backend
+    restart: unless-stopped
+    networks:
+      - proxy
+    ports:
+      - 11080:3000
 
 networks:
   proxy:
