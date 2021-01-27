@@ -1,15 +1,18 @@
 version: "3.7"
 
 services:
-  rocketship:
-    build: .
-    image: docker.ryanliu6.xyz/rocketship
-    container_name: rocketship
+  rocketship_frontend:
+    build:
+      context: .
+      args:
+        folder_path: frontend
+    image: docker.ryanliu6.xyz/rocketship_frontend
+    container_name: rocketship_frontend
     restart: unless-stopped
     networks:
       - proxy
     volumes:
-      - .:/app
+      - ./frontend:/app
       - /app/node_modules
     ports:
       - 3001:3000

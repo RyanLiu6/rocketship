@@ -1,0 +1,7 @@
+{
+  "name": "String",
+  "ticker": "String",
+  "title_mentions": "Integer",
+  "comment_mentions": "Integer"
+}
+
